@@ -1,0 +1,7 @@
+{
+  "name": "Travel Tipping Calculator",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
