@@ -1,3 +1,12 @@
+# Search for '@' and replace AppName and AppDescription
+@AppName@
+@AppDescription@
+
+# Replace app-name in package.json
+app-name
+
+# Replace appname in build.gradle, MainActivity.java, strings.xml, capacitor.config.js,
+
 # Serve the app in browser for development
 ionic serve
 
