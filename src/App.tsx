@@ -49,15 +49,8 @@ import { observer } from 'mobx-react-lite';
 import CalcMain from './pages/calculator';
 import './App.scss';
 import { checkIfCanRequestReview, requestReview } from './helpers/app-review';
-import { createRoot } from 'react-dom/client';
-import envConfig from './config/configuration';
-import createStore from './helpers/create-store';
-import { StoreProvider } from './helpers/store-context';
 
 setupIonicReact();
-const container = document.getElementById('root');
-const root = createRoot(container!);
-const { rootStore, env } = createStore({ envConfig });
 
 const App: React.FC = () => {
   const [bannerHeight, setBannerHeight] = useState<number>(0);
@@ -173,7 +166,6 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <StoreProvider value={rootStore}>
       <IonApp>
         <IonReactRouter>
           <IonTabs>
@@ -221,7 +213,6 @@ const App: React.FC = () => {
           ]}
         />
       </IonApp>
-    </StoreProvider>
   );
 };
 

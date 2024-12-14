@@ -9,6 +9,7 @@ import { StoreProvider } from './helpers/store-context';
 const container = document.getElementById('root');
 const root = createRoot(container!);
 const { rootStore, env } = createStore({ envConfig });
+
 root.render(
   <React.StrictMode>
     <StoreProvider value={rootStore}>
