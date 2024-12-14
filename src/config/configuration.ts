@@ -1,4 +1,4 @@
-import { Environment } from "../heplers/create-store";
+import { Environment } from "../helpers/create-store";
 
 export default {
   isLocal: import.meta.env.VITE_APP_IS_LOCAL === 'true',

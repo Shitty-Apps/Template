@@ -26,7 +26,6 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
-
 import './App.scss';
 
 /**
@@ -45,13 +44,20 @@ import './theme/variables.css';
 import { useEffect, useState } from 'react';
 import { BannerAdPosition, BannerAdSize } from '@capacitor-community/admob';
 import { useTranslation } from 'react-i18next';
-import { useStore } from './heplers/use-store';
+import { useStore } from './helpers/use-store';
 import { observer } from 'mobx-react-lite';
 import CalcMain from './pages/calculator';
 import './App.scss';
-import { checkIfCanRequestReview, requestReview } from './heplers/app-review';
+import { checkIfCanRequestReview, requestReview } from './helpers/app-review';
+import { createRoot } from 'react-dom/client';
+import envConfig from './config/configuration';
+import createStore from './helpers/create-store';
+import { StoreProvider } from './helpers/store-context';
 
 setupIonicReact();
+const container = document.getElementById('root');
+const root = createRoot(container!);
+const { rootStore, env } = createStore({ envConfig });
 
 const App: React.FC = () => {
   const [bannerHeight, setBannerHeight] = useState<number>(0);
@@ -60,16 +66,20 @@ const App: React.FC = () => {
   const [showReviewToast, setShowReviewToast] = useState(false);
   const ionRouter = useIonRouter();
   const { t } = useTranslation();
-
   const {
-    serviceStore: { adMobStore}
+    dataStore: { translationStore },
+    serviceStore: { adMobStore }
   } = useStore();
+
+  const initTranslation = async () => {
+    await translationStore.init();
+  };
 
   const tryInitAds = async () => {
     try {
       // First initialize AdMob
       await adMobStore.initializeAdMobOnce();
-      
+
       if (!adMobStore.AdMobState.isInitialized) {
         console.error('AdMob failed to initialize, cannot show ads');
         return;
@@ -78,9 +88,9 @@ const App: React.FC = () => {
       // Show the banner with production ID after a small delay
       setTimeout(async () => {
         await adMobStore.showBannerAd({
-          adId: 'ca-app-pub-1275679285318015/5010279015', 
-          isTesting: false, 
-          position: BannerAdPosition.BOTTOM_CENTER, 
+          adId: 'ca-app-pub-1275679285318015/5010279015',
+          isTesting: false,
+          position: BannerAdPosition.BOTTOM_CENTER,
           adSize: BannerAdSize.ADAPTIVE_BANNER
         });
       }, 3000);
@@ -90,6 +100,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    initTranslation();
     tryInitAds();
 
     return () => {
@@ -99,7 +110,7 @@ const App: React.FC = () => {
 
   const showBannerAd = async () => {
     // await adMobStore.showBannerAd({adId: 'ca-app-pub-3940256099942544/9214589741', isTesting: true, position: BannerAdPosition.BOTTOM_CENTER, adSize: BannerAdSize.ADAPTIVE_BANNER}); // Test ad
-    await adMobStore.showBannerAd({adId: 'ca-app-pub-1275679285318015/5010279015', isTesting: false, position: BannerAdPosition.BOTTOM_CENTER, adSize: BannerAdSize.ADAPTIVE_BANNER}); // production ad
+    await adMobStore.showBannerAd({ adId: 'ca-app-pub-1275679285318015/5010279015', isTesting: false, position: BannerAdPosition.BOTTOM_CENTER, adSize: BannerAdSize.ADAPTIVE_BANNER }); // production ad
   }
 
   const removeBannerAd = async () => {
@@ -115,14 +126,14 @@ const App: React.FC = () => {
   useEffect(() => {
     const handleBackButton = () => {
       setShowExitToast(true);
-      
+
       if (!isPlatform('hybrid')) {
         console.log('Not on mobile platform');
         return;
       }
-      
+
       const currentTime = new Date().getTime();
-      
+
       if (currentTime - lastBackPress < 2000) {
         console.log('Double press detected - exiting app');
         CapacitorApp.exitApp();
@@ -162,53 +173,55 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <IonApp>
-      <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route exact path="/tab1">
-              <CalcMain bannerHeight={bannerHeight} showBannerAd={showBannerAd} removeBannerAd={removeBannerAd} />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/tab1" />
-            </Route>
-          </IonRouterOutlet>
-        </IonTabs>
-      </IonReactRouter>
-      <IonToast
-        isOpen={showExitToast}
-        onDidDismiss={() => setShowExitToast(false)}
-        message={t('press-again-to-exit')}
-        duration={1500}
-        position="bottom"
-        positionAnchor='ad-placeholder'
-      />
-      <IonToast
-        isOpen={showReviewToast}
-        onDidDismiss={() => setShowReviewToast(false)}
-        message={t('would-you-like-to-review')}
-        duration={15000}
-        position="bottom"
-        positionAnchor='ad-placeholder'
-        className='review-toast'
-        buttons={[
-          {
-            side: 'start',
-            text: t('maybe-later'),
-            role: 'cancel',
-            handler: () => setShowReviewToast(false)
-          },
-          {
-            text: t('lets-go'),
-            role: 'confirm',
-            handler: () => {
-              requestReview();
-              setShowReviewToast(false);
+    <StoreProvider value={rootStore}>
+      <IonApp>
+        <IonReactRouter>
+          <IonTabs>
+            <IonRouterOutlet>
+              <Route exact path="/tab1">
+                <CalcMain bannerHeight={bannerHeight} showBannerAd={showBannerAd} removeBannerAd={removeBannerAd} />
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/tab1" />
+              </Route>
+            </IonRouterOutlet>
+          </IonTabs>
+        </IonReactRouter>
+        <IonToast
+          isOpen={showExitToast}
+          onDidDismiss={() => setShowExitToast(false)}
+          message={t('press-again-to-exit')}
+          duration={1500}
+          position="bottom"
+          positionAnchor='ad-placeholder'
+        />
+        <IonToast
+          isOpen={showReviewToast}
+          onDidDismiss={() => setShowReviewToast(false)}
+          message={t('would-you-like-to-review')}
+          duration={15000}
+          position="bottom"
+          positionAnchor='ad-placeholder'
+          className='review-toast'
+          buttons={[
+            {
+              side: 'start',
+              text: t('maybe-later'),
+              role: 'cancel',
+              handler: () => setShowReviewToast(false)
+            },
+            {
+              text: t('lets-go'),
+              role: 'confirm',
+              handler: () => {
+                requestReview();
+                setShowReviewToast(false);
+              }
             }
-          }
-        ]}
-      />
-    </IonApp>
+          ]}
+        />
+      </IonApp>
+    </StoreProvider>
   );
 };
 

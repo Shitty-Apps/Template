@@ -4,11 +4,11 @@ import { DATA } from '../data/data';
 import { Country, CountryData } from '../data/types';
 import CountrySelect from '../components/country-select/country-select';
 import { FunctionComponent, useEffect, useState } from 'react';
-import { LocationHelper } from '../heplers/location-helper';
+import { LocationHelper } from '../helpers/location-helper';
 import { useTranslation } from 'react-i18next';
 import { AdmobConsentStatus } from '@capacitor-community/admob';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '../heplers/use-store';
+import { useStore } from '../helpers/use-store';
 import { includes } from 'lodash';
 import { JSX } from 'react/jsx-runtime';
 
