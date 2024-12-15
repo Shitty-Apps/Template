@@ -46,7 +46,7 @@ import { BannerAdPosition, BannerAdSize } from '@capacitor-community/admob';
 import { useTranslation } from 'react-i18next';
 import { useStore } from './helpers/use-store';
 import { observer } from 'mobx-react-lite';
-import CalcMain from './pages/calculator';
+import CalcMain from './pages/calculator/calculator';
 import './App.scss';
 import { checkIfCanRequestReview, requestReview } from './helpers/app-review';
 

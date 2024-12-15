@@ -1,6 +1,3 @@
-@import './components/components';
-@import './pages/calculator';
-
 /* Core CSS required for Ionic components to work properly */
 @import '@ionic/react/css/core';
 
@@ -30,6 +27,9 @@
 
 /* Theme variables */
 @import './theme/variables';
+
+@import './components/components';
+@import './pages/pages';
 
 .review-toast {
   color: green;
