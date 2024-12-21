@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "विज्ञापन प्राथमिकताएँ",
+  "press-again-to-exit": "बाहर निकलने के लिए फिर से दबाएं",
+  "would-you-like-to-review": "क्या आप ऐप स्टोर पर हमें रेट करना चाहेंगे?",
+  "maybe-later": "शायद बाद में",
+  "lets-go": "चलो चलें",
+  "watch-rewarding-ad": "रिवॉर्ड के लिए विज्ञापन देखें"
 }

@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "广告偏好",
+  "press-again-to-exit": "再按一次退出",
+  "would-you-like-to-review": "您想在应用商店给我们评分吗？",
+  "maybe-later": "稍后再说",
+  "lets-go": "开始吧",
+  "watch-rewarding-ad": "观看广告获得奖励"
 }

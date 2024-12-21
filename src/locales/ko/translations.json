@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "광고 설정",
+  "press-again-to-exit": "종료하려면 다시 누르세요",
+  "would-you-like-to-review": "앱 스토어에서 리뷰를 작성하시겠습니까?",
+  "maybe-later": "나중에 하기",
+  "lets-go": "시작하기",
+  "watch-rewarding-ad": "보상형 광고 보기"
 }

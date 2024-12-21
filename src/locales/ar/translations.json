@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "تفضيلات الإعلان",
+  "press-again-to-exit": "اضغط مرة أخرى للخروج",
+  "would-you-like-to-review": "هل ترغب في تقييمنا على متجر التطبيقات؟",
+  "maybe-later": "ربما لاحقاً",
+  "lets-go": "هيا بنا",
+  "watch-rewarding-ad": "شاهد الإعلان للحصول على مكافأة"
 }

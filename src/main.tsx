@@ -1,9 +1,8 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import './i18n/config';
 import App from './App';
 import createStore from './helpers/create-store';
 import envConfig from './config/configuration';
+import { createRoot } from 'react-dom/client';
 import { StoreProvider } from './helpers/store-context';
 
 const container = document.getElementById('root');

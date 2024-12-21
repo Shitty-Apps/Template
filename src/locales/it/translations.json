@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "Preferenze pubblicitarie",
+  "press-again-to-exit": "Premi di nuovo per uscire",
+  "would-you-like-to-review": "Vorresti recensirci sull'app store?",
+  "maybe-later": "Forse più tardi",
+  "lets-go": "Andiamo",
+  "watch-rewarding-ad": "Guarda l'annuncio per la ricompensa"
 }

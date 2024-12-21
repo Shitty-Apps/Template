@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "Настройки рекламы",
+  "press-again-to-exit": "Нажмите снова, чтобы выйти",
+  "would-you-like-to-review": "Хотите оставить отзыв в магазине приложений?",
+  "maybe-later": "Возможно позже",
+  "lets-go": "Поехали",
+  "watch-rewarding-ad": "Посмотреть рекламу за награду"
 }

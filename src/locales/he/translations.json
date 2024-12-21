@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "העדפות פרסומות",
+  "press-again-to-exit": "לחץ שוב כדי לצאת",
+  "would-you-like-to-review": "האם תרצה לדרג אותנו בחנות האפליקציות?",
+  "maybe-later": "אולי מאוחר יותר",
+  "lets-go": "בוא נלך",
+  "watch-rewarding-ad": "צפה במודעה לקבלת פרס"
 }

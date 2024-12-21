@@ -1,13 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import {
-  IonApp,
-  IonRouterOutlet,
-  IonTabs,
-  IonToast,
-  isPlatform,
-  setupIonicReact,
-  useIonRouter
-} from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonToast, isPlatform, setupIonicReact, useIonRouter } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { App as CapacitorApp } from '@capacitor/app';
 
@@ -41,16 +33,23 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import './App.scss';
+
 import { useEffect, useState } from 'react';
 import { BannerAdPosition, BannerAdSize } from '@capacitor-community/admob';
 import { useTranslation } from 'react-i18next';
 import { useStore } from './helpers/use-store';
 import { observer } from 'mobx-react-lite';
-import CalcMain from './pages/calculator/calculator';
-import './App.scss';
 import { checkIfCanRequestReview, requestReview } from './helpers/app-review';
+import { useEffectOnce } from './hooks/use-effect-once';
+import { includes } from 'lodash';
+import { RTL_LANGUAGES } from './stores/data/translation/types';
+import SamplePage from './pages/sample-page/sample-page';
+import BanneredLayout from './banner-ad-layout';
 
 setupIonicReact();
+
+const BANNER_AD_CONTAINER_ID = 'banner-ad-container-id';
 
 const App: React.FC = () => {
   const [bannerHeight, setBannerHeight] = useState<number>(0);
@@ -61,60 +60,21 @@ const App: React.FC = () => {
   const { t } = useTranslation();
   const {
     dataStore: { translationStore },
-    serviceStore: { adMobStore }
+    serviceStore: { adMobStore, bannerAdId }
   } = useStore();
 
-  const initTranslation = async () => {
-    await translationStore.init();
-  };
-
-  const tryInitAds = async () => {
-    try {
-      // First initialize AdMob
-      await adMobStore.initializeAdMobOnce();
-
-      if (!adMobStore.AdMobState.isInitialized) {
-        console.error('AdMob failed to initialize, cannot show ads');
-        return;
-      }
-
-      // Show the banner with production ID after a small delay
-      setTimeout(async () => {
-        await adMobStore.showBannerAd({
-          adId: 'ca-app-pub-1275679285318015/5010279015',
-          isTesting: false,
-          position: BannerAdPosition.BOTTOM_CENTER,
-          adSize: BannerAdSize.ADAPTIVE_BANNER
-        });
-      }, 3000);
-    } catch (error) {
-      console.error('Error initializing ads:', error);
-    }
-  };
-
-  useEffect(() => {
-    initTranslation();
-    tryInitAds();
-
-    return () => {
-      adMobStore.removeBannerAd();
-    };
-  }, []);
-
   const showBannerAd = async () => {
-    // await adMobStore.showBannerAd({adId: 'ca-app-pub-3940256099942544/9214589741', isTesting: true, position: BannerAdPosition.BOTTOM_CENTER, adSize: BannerAdSize.ADAPTIVE_BANNER}); // Test ad
-    await adMobStore.showBannerAd({ adId: 'ca-app-pub-1275679285318015/5010279015', isTesting: false, position: BannerAdPosition.BOTTOM_CENTER, adSize: BannerAdSize.ADAPTIVE_BANNER }); // production ad
-  }
+    await adMobStore.showBannerAd({
+      adId: bannerAdId,
+      isTesting: false,
+      position: BannerAdPosition.BOTTOM_CENTER,
+      adSize: BannerAdSize.ADAPTIVE_BANNER
+    });
+  };
 
-  const removeBannerAd = async () => {
-    await adMobStore.removeBannerAd();
-  }
-
-
-  useEffect(() => {
-    console.log('Banner size changed:', 'width:', adMobStore.bannerSize.width, 'height:', adMobStore.bannerSize.height);
-    setBannerHeight(adMobStore.bannerSize.height);
-  }, [adMobStore.bannerSize]);
+  useEffectOnce(() => {
+    translationStore.init();
+  });
 
   useEffect(() => {
     const handleBackButton = () => {
@@ -158,61 +118,68 @@ const App: React.FC = () => {
     };
   }, [lastBackPress, ionRouter]);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     const shouldPromptForReview = checkIfCanRequestReview();
     if (!shouldPromptForReview) return;
 
     setShowReviewToast(true);
-  }, []);
+  });
+
+  useEffect(() => {
+    const dir = includes(RTL_LANGUAGES, translationStore.currentLanguage) ? 'rtl' : 'ltr';
+    document.dir = dir;
+  }, [translationStore.currentLanguage]);
+
 
   return (
-      <IonApp>
-        <IonReactRouter>
-          <IonTabs>
-            <IonRouterOutlet>
-              <Route exact path="/tab1">
-                <CalcMain bannerHeight={bannerHeight} showBannerAd={showBannerAd} removeBannerAd={removeBannerAd} />
-              </Route>
-              <Route exact path="/">
-                <Redirect to="/tab1" />
-              </Route>
-            </IonRouterOutlet>
-          </IonTabs>
-        </IonReactRouter>
-        <IonToast
-          isOpen={showExitToast}
-          onDidDismiss={() => setShowExitToast(false)}
-          message={t('press-again-to-exit')}
-          duration={1500}
-          position="bottom"
-          positionAnchor='ad-placeholder'
-        />
-        <IonToast
-          isOpen={showReviewToast}
-          onDidDismiss={() => setShowReviewToast(false)}
-          message={t('would-you-like-to-review')}
-          duration={15000}
-          position="bottom"
-          positionAnchor='ad-placeholder'
-          className='review-toast'
-          buttons={[
-            {
-              side: 'start',
-              text: t('maybe-later'),
-              role: 'cancel',
-              handler: () => setShowReviewToast(false)
-            },
-            {
-              text: t('lets-go'),
-              role: 'confirm',
-              handler: () => {
-                requestReview();
-                setShowReviewToast(false);
-              }
+    <IonApp>
+      <IonReactRouter>
+        <BanneredLayout bannerAdContainerId={BANNER_AD_CONTAINER_ID}>
+          <IonRouterOutlet>
+            <Route exact path="/tab1">
+              <SamplePage />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/tab1" />
+            </Route>
+          </IonRouterOutlet>
+        </BanneredLayout>
+      </IonReactRouter>
+
+      <IonToast
+        isOpen={showExitToast}
+        onDidDismiss={() => setShowExitToast(false)}
+        message={t('press-again-to-exit')}
+        duration={1500}
+        position='bottom'
+        positionAnchor={BANNER_AD_CONTAINER_ID}
+      />
+      <IonToast
+        isOpen={showReviewToast}
+        onDidDismiss={() => setShowReviewToast(false)}
+        message={t('would-you-like-to-review')}
+        duration={15000}
+        position='bottom'
+        positionAnchor={BANNER_AD_CONTAINER_ID}
+        className='review-toast'
+        buttons={[
+          {
+            side: 'start',
+            text: t('maybe-later'),
+            role: 'cancel',
+            handler: () => setShowReviewToast(false)
+          },
+          {
+            text: t('lets-go'),
+            role: 'confirm',
+            handler: () => {
+              requestReview();
+              setShowReviewToast(false);
             }
-          ]}
-        />
-      </IonApp>
+          }
+        ]}
+      />
+    </IonApp>
   );
 };
 

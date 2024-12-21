@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "Ad preferences",
+  "press-again-to-exit": "Press again to exit",
+  "would-you-like-to-review": "Would you like to review us on app store?",
+  "maybe-later": "Maybe later",
+  "lets-go": "Let's go",
+  "watch-rewarding-ad": "Watch ad for Reward"
 }

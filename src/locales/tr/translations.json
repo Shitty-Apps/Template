@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "Reklam Tercihleri",
+  "press-again-to-exit": "Çıkmak için tekrar basın",
+  "would-you-like-to-review": "Uygulama mağazasında bizi değerlendirmek ister misiniz?",
+  "maybe-later": "Belki daha sonra",
+  "lets-go": "Haydi gidelim",
+  "watch-rewarding-ad": "Ödül için reklam izle"
 }

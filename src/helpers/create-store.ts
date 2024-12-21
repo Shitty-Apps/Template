@@ -6,22 +6,24 @@ import TranslationService from "../services/translation-service";
 export interface Environment {
   isLocal: boolean;
   apiUrl: string;
-}
+  bannerAdId: string;
+  rewardingAdId: string;
+};
 
 export interface RootEnvironment {
   envConfig: Environment;
   adMobService: AdMobService;
   translationService: TranslationService;
-}
+};
 
 export interface CreateStoreResult {
   rootStore: RootStore;
   env: RootEnvironment;
-}
+};
 
 export interface CreateStoreOptions {
   envConfig: Environment;
-}
+};
 
 const createStore = ({ envConfig }: CreateStoreOptions): CreateStoreResult => {
   const adMobService = new AdMobService();

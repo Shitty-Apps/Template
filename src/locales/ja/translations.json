@@ -1,6 +1,8 @@
 {
-  "key1": "value1",
-  "nested-key2": {
-    "value2": "value2"
-  }
+  "ad-preferences": "広告設定",
+  "press-again-to-exit": "終了するにはもう一度押してください",
+  "would-you-like-to-review": "アプリストアでレビューを書いていただけますか？",
+  "maybe-later": "また今度",
+  "lets-go": "始めましょう",
+  "watch-rewarding-ad": "報酬付き広告を見る"
 }
