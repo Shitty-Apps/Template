@@ -1,3 +1,6 @@
+# Update configuration.ts file
+ad ids should be updated according to app
+
 # Search for '@' and replace AppName and AppDescription
 @AppName@
 @AppDescription@
