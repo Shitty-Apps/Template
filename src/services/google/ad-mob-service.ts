@@ -12,15 +12,15 @@ export class AdMobService {
   public bannerSize: AdMobBannerSize;
 
   constructor() {
-      this.AdMobState = {
-          isInitialized: false,
-          hasConsent: false,
-          isRewardedVideoLoading: false
-      };
-      this.bannerSize = {
-          width: 320,
-          height: 60
-      }
+    this.AdMobState = {
+      isInitialized: false,
+      hasConsent: false,
+      isRewardedVideoLoading: false
+    };
+    this.bannerSize = {
+      width: 320,
+      height: 60
+    }
   }
 
   public async checkAndRequestConsent(config?: ConsentConfig): Promise<void> {
@@ -33,8 +33,8 @@ export class AdMobService {
 
       this.AdMobState.consentStatus = consentInfo.status;
 
-      if (consentInfo.isConsentFormAvailable && 
-          consentInfo.status === AdmobConsentStatus.REQUIRED) {
+      if (consentInfo.isConsentFormAvailable &&
+        consentInfo.status === AdmobConsentStatus.REQUIRED) {
         const result = await AdMob.showConsentForm();
         this.AdMobState.hasConsent = result.status === AdmobConsentStatus.OBTAINED;
       }
@@ -47,12 +47,12 @@ export class AdMobService {
     try {
       // Remove any existing banner
       await AdMob.removeBanner();
-      
+
       // Set up event listeners - make sure to await them
       const listeners: PluginListenerHandle[] = [];
-      
+
       const loadedListener = await AdMob.addListener(
-        BannerAdPluginEvents.Loaded, 
+        BannerAdPluginEvents.Loaded,
         () => {
           console.log('Banner ad loaded');
         }
@@ -60,7 +60,7 @@ export class AdMobService {
       listeners.push(loadedListener);
 
       const sizeListener = await AdMob.addListener(
-        BannerAdPluginEvents.SizeChanged, 
+        BannerAdPluginEvents.SizeChanged,
         (size: AdMobBannerSize) => {
           console.log('Banner size changed:', size);
           this.bannerSize = size;
@@ -69,7 +69,7 @@ export class AdMobService {
       listeners.push(sizeListener);
 
       const errorListener = await AdMob.addListener(
-        BannerAdPluginEvents.FailedToLoad, 
+        BannerAdPluginEvents.FailedToLoad,
         (error: AdMobError) => {
           console.error('Failed to load banner ad:', error);
         }
@@ -138,7 +138,7 @@ export class AdMobService {
       await this._adMobInitialize();
       return { success: true };
     } catch (error) {
-      console.log('Error initializing AdMob:', error); 
+      console.log('Error initializing AdMob:', error);
       return { success: false };
     }
   }

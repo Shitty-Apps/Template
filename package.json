@@ -1,7 +1,8 @@
 {
-  "name": "world-travel-tip-calculator",
+  "name": "app-name",
+  "description": "@AppDescription@",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -68,6 +69,5 @@
     "vite": "~5.2.0",
     "vite-plugin-svgr": "^4.2.0",
     "vitest": "^0.34.6"
-  },
-  "description": "An Ionic project"
+  }
 }

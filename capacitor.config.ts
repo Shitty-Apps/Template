@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.sappsinteractive.worldtraveltipcalculator',
-  appName: 'Tip Split &amp; Travel Calculator',
+  appId: 'com.sappsinteractive.appname',
+  appName: '@AppName@', // TODO: edit name
   webDir: 'dist',
   plugins: {
     Assets: {

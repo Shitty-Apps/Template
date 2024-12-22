@@ -1,4 +1,4 @@
-package com.sappsinteractive.worldtraveltipcalculator;
+package com.sappsinteractive.appname;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -1,6 +1,6 @@
 {
-  "short_name": "Tip Split &amp; Travel Calculator",
-  "name": "Tip Split &amp; Travel Calculator",
+  "short_name": "@AppName@",
+  "name": "@AppName@",
   "icons": [
     {
       "src": "../icons/icon-48.webp",

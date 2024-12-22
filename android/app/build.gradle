@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.sappsinteractive.worldtraveltipcalculator"
+    namespace "com.sappsinteractive.appname"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.sappsinteractive.worldtraveltipcalculator"
+        applicationId "com.sappsinteractive.appname"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7
