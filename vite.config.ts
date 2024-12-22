@@ -1,8 +1,8 @@
 /// <reference types="vitest" />
-
+import { defineConfig } from 'vite'
+import path from 'path';
 import legacy from '@vitejs/plugin-legacy'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
 import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
@@ -24,6 +24,11 @@ export default defineConfig({
       include: '**/*.svg',
     }),
   ],
+  resolve: {
+    alias: {
+      '@ionic/react': path.resolve(__dirname, './node_modules/@ionic/react')
+    }
+  },
   css: {
     preprocessorOptions: {
       scss: {
@@ -42,7 +47,7 @@ export default defineConfig({
       }
     }
   },
-    json: {
+  json: {
     stringify: true
   },
   test: {
