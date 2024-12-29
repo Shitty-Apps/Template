@@ -1,18 +1,18 @@
-/* Core CSS required for Ionic components to work properly */
-@import '@ionic/react/css/core';
+// /* Core CSS required for Ionic components to work properly */
+// @use '@ionic/react/css/core';
 
-/* Basic CSS for apps built with Ionic */
-@import '@ionic/react/css/normalize';
-@import '@ionic/react/css/structure';
-@import '@ionic/react/css/typography';
+// /* Basic CSS for apps built with Ionic */
+// @use '@ionic/react/css/normalize';
+// @use '@ionic/react/css/structure';
+// @use '@ionic/react/css/typography';
 
-/* Optional CSS utils that can be commented out */
-@import '@ionic/react/css/padding';
-@import '@ionic/react/css/float-elements';
-@import '@ionic/react/css/text-alignment';
-@import '@ionic/react/css/text-transformation';
-@import '@ionic/react/css/flex-utils';
-@import '@ionic/react/css/display';
+// /* Optional CSS utils that can be commented out */
+// @use '@ionic/react/css/padding';
+// @use '@ionic/react/css/float-elements';
+// @use '@ionic/react/css/text-alignment';
+// @use '@ionic/react/css/text-transformation';
+// @use '@ionic/react/css/flex-utils';
+// @use '@ionic/react/css/display';
 
 /**
  * Ionic Dark Mode
@@ -21,15 +21,15 @@
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-@import '@ionic/react/css/palettes/dark.system';
+/* use '@ionic/react/css/palettes/dark.always.css'; */
+/* use '@ionic/react/css/palettes/dark.class.css'; */
+@use '@ionic/react/css/palettes/dark.system';
 
 /* Theme variables */
-@import './theme/variables';
+@use './theme/variables';
 
-@import './components/components';
-@import './pages/pages';
+@use './components/components';
+@use './pages/pages';
 
 .review-toast {
   color: green;

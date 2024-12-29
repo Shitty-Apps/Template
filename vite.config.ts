@@ -33,16 +33,16 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import "@ionic/react/css/core.css";
-          @import "@ionic/react/css/normalize.css";
-          @import "@ionic/react/css/structure.css";
-          @import "@ionic/react/css/typography.css";
-          @import "@ionic/react/css/padding.css";
-          @import "@ionic/react/css/float-elements.css";
-          @import "@ionic/react/css/text-alignment.css";
-          @import "@ionic/react/css/text-transformation.css";
-          @import "@ionic/react/css/flex-utils.css";
-          @import "@ionic/react/css/display.css";
+          @use "@ionic/react/css/core.css";
+          @use "@ionic/react/css/normalize.css";
+          @use "@ionic/react/css/structure.css";
+          @use "@ionic/react/css/typography.css";
+          @use "@ionic/react/css/padding.css";
+          @use "@ionic/react/css/float-elements.css";
+          @use "@ionic/react/css/text-alignment.css";
+          @use "@ionic/react/css/text-transformation.css";
+          @use "@ionic/react/css/flex-utils.css";
+          @use "@ionic/react/css/display.css";
         `
       }
     }
